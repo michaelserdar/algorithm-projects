@@ -23,4 +23,3 @@ if __name__ == "__main__":
 
     result = gcd_recursive(a, b)
     print("Result: ", result)
-

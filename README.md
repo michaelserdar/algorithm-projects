@@ -39,4 +39,5 @@ python gcd/euclid_recursive.py
 
 
 ## License 
-MIT License - Free to use and adapt for educational purposes 
+MIT License - Free to use and adapt for educational purposes
+
