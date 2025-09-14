@@ -1,6 +1,7 @@
 # Iterative version of Euclid's algorithm
 import sys
 
+
 def gcd_iterative(a: int, b: int) -> int:
     """Compute GCD using the iterative Euclidean algorithm, printing each step for clarity"""
     print(f"Finding the GCD for: ({a}, {b}")
