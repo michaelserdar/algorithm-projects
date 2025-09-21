@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="918ef4f6-99b9-4a29-86df-4d9ea2a7aba7" name="Changes" comment="Create euclid_recursive.py">
-      <change afterPath="$PROJECT_DIR$/gcd/README.md" afterDir="false" />
+    <list default="true" id="918ef4f6-99b9-4a29-86df-4d9ea2a7aba7" name="Changes" comment="create README.md for gcd project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,35 +15,35 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "michaelserdar"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;michaelserdar&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/michaelserdar/algorithm-projects.git",
-    "accountId": "4d9a5ee0-5ab3-4e6d-86f1-5118b4339caa"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/michaelserdar/algorithm-projects.git&quot;,
+    &quot;accountId&quot;: &quot;4d9a5ee0-5ab3-4e6d-86f1-5118b4339caa&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="32h3J9038Mx3FtxzKhUTGNGixn8" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -93,7 +92,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757861395567</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Create euclid_recursive.py">
+      <option name="closed" value="true" />
+      <created>1757869922223</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1757869922223</updated>
+    </task>
+    <task id="LOCAL-00006" summary="create README.md for gcd project">
+      <option name="closed" value="true" />
+      <created>1757870050662</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1757870050662</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -101,6 +116,7 @@
     <MESSAGE value="Create README.md" />
     <MESSAGE value="Create euclid_iterative.py" />
     <MESSAGE value="Create euclid_recursive.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create euclid_recursive.py" />
+    <MESSAGE value="create README.md for gcd project" />
+    <option name="LAST_COMMIT_MESSAGE" value="create README.md for gcd project" />
   </component>
 </project>
