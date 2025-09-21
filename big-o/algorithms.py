@@ -113,3 +113,15 @@ def quadratic_pairs(n: int, return_pairs: bool = False):
 
     return (count, pairs) if return_pairs else count
 
+
+# --O(2^n)-----------------------------------------------------------
+def fib_exp(n: int) -> int:
+    """
+    naive recursive fibonacci to show explosive growth
+    DO NOT CALL WITH LARGE N keep it <= 30
+    """
+
+    # Base case
+    if n <=1:
+        return n
+    return fib_exp(n -1) + fib_exp(n -2)
