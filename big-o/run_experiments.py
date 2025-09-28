@@ -43,7 +43,23 @@ def format_row(name: str, n: int, secs: float) -> str:
 # prints the title of the algorithm and underlines it with * matching the len of title
 def section(title: str):
     print("\n" + title)
-    print("\n" * len(title))
+    print("*" * len(title))
+
+
+def main():
+
+    # O(1) examples
+    section("O(1) - first_element")
+    arr = list(range(1_000))
+    for _ in range(3):
+        secs = time_call(first_element, arr, repeats=500_000)
+        print(format_row("first_element", len(arr), secs))
+
+    section("O(1) - is_even")
+    for n in [10, 10**6, 10**12]:
+        secs = time_call(is_even, n, repeats=500_000)
+        print(format_row("is_even", n, secs))
+
 
 
 
