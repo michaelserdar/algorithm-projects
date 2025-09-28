@@ -64,34 +64,40 @@ def get_sizes(fast: bool) -> Dict[str, List[int]]:
 def get_funcs() -> Dict[str, Callable[[int], object]]:
     """
     Map function names to callables that accept 'n'.
-    where needed, wrap to generate inputs (e.g., merge_sort needs a list).
+    We cache large inputs so repeats don't rebuild them.
     """
+    arr_cache: Dict[int, list] = {}
+
+    def first_element_wrapped(n: int):
+        # Build the array once per n, then reuse it across repeats.
+        if n not in arr_cache:
+            arr_cache[n] = list(range(n))
+        return first_element(arr_cache[n])
+
     return {
-        "first_element": lambda n: first_element(list(range(n))),
+        "first_element": first_element_wrapped,           # uses cache
         "is_even": lambda n: is_even(n),
         "binary_search": lambda n: binary_search_steps(n),
         "linear_sum": lambda n: linear_sum(n),
         "merge_sort": lambda n: merge_sort([random.randint(0, 1_000_000) for _ in range(n)]),
         "quadratic_pairs": lambda n: quadratic_pairs(n),
-        "fib_exp": lambda n: fib_exp(n)
+        "fib_exp": lambda n: fib_exp(n),
     }
 
 
 def get_repeats(fast: bool) -> Dict[str, int]:
     """
-    Repeat very fast calls to reduce timer noise.
-    Slower algorithms run once per n
+    Repeat very fast calls to reduce timer noise, but keep counts reasonable.
     """
     return {
-        "first_element": 200_000 if fast else 500_000,
-        "is_even": 200_000 if fast else 500_000,
-        "binary_search": 100_000 if fast else 200_000,
+        "first_element": 50_000 if fast else 100_000,   # reduced (was huge)
+        "is_even": 50_000 if fast else 100_000,
+        "binary_search": 20_000 if fast else 50_000,
         "linear_sum": 1,
         "merge_sort": 1,
         "quadratic_pairs": 1,
-        "fib_exp": 1
+        "fib_exp": 1,
     }
-
 
 # --------------------------------- Timing -------------------------#
 
