@@ -35,5 +35,17 @@ def time_call(fn: Callable, *args, repeats: int = 1) -> float:
     return (end - start) / repeats
 
 
+# function left aligns output rows for readability and converts seconds to ms
+def format_row(name: str, n: int, secs: float) -> str:
+    return f"{name:<18} | n={n:<8} | {secs*1000:8.4f} ms"
+
+
+# prints the title of the algorithm and underlines it with * matching the len of title
+def section(title: str):
+    print("\n" + title)
+    print("\n" * len(title))
+
+
+
 if __name__ == "__main__":
     main()
