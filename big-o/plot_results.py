@@ -178,3 +178,38 @@ def parse_args() -> argparse.Namespace:
     )
     return p.parse_args()
 
+# ------------------------------- Main ---------------------------------------#
+
+
+def main() -> None:
+    args = parse_args()
+
+    # look for either --fast of environment FAST from the cli
+    fast_env = os.environ.get("Fast", "") != ""
+    fast = args.fast or fast_env
+
+    sizes = get_sizes(fast)
+    funcs = get_funcs()
+    repeats = get_repeats(fast)
+
+    # filter selection if --only is given as flag
+    selected = set(n.strip() for n in args.only.split(",") if n.strip()) or set(funcs.keys())
+    unknown = selected - set(funcs.keys())
+    if unknown:
+        raise SystemExit(f"Unknown function: {', '.join(sorted(unknown))}")
+
+    # run, plot, and optionally log csv
+    for name in sorted(selected):
+        fn = funcs[name]
+        ns = sizes[name]
+        reps = repeats[name]
+
+        ns_list, secs = measure_series(name, fn, ns, reps)
+        plot_series(name, ns_list, secs, args.outdir)
+
+        if args.csv is not None:
+            rows = [(name, n, s) for n, s in zip(ns_list, secs)]
+            append_csv(args.csv, rows)
+
+if __name__ == "__main__":
+    main()
