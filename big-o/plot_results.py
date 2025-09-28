@@ -35,3 +35,43 @@ from algorithms import (
 
 # -------------------------------- Configuration -----------------------------------------#
 
+
+def get_sizes(fast: bool) -> Dict[str, List[int]]:
+    """Return input-size schedule per function"""
+    return {
+        # O(1) examples: list length doesn't effect lookup cost
+        "first_element": [1_000_000, 1_000_000, 1_000_000],
+        "is_even": [10, 10**8, 10**12],
+
+        # O(log n) example
+        "binary_search": [10,10_000,10_000_000],
+
+        # O(n) example
+        "linear_sum": [5_000, 20_000] if fast else [10_000, 50_000, 100_000],
+
+        # O(n log n) example
+        "merge_sort": [2_000, 10_000] if fast else [5_000, 20_000, 50_000],
+
+        # O(n^2) example
+        "quadratic_pairs": [300, 600] if fast else [600, 1_000, 1_400],
+
+        # O(2^n) example
+        "fib_exp": [24, 26] if fast else [28, 30]
+    }
+
+
+def get_funcs() -> Dict[str, Callable[[int], object]]:
+    """
+    Map function names to callables that accept 'n'.
+    where needed, wrap to generate inputs (e.g., merge_sort needs a list).
+    """
+    return {
+        "first_element": lambda n: first_element(list(range(n))),
+        "is_even": lambda n: is_even(n),
+        "binary_search": lambda n: binary_search_steps(n),
+        "linear_sum": lambda n: linear_sum(n),
+        "merge_sort": lambda n: merge_sort([random.randint(0,1_000_000) for _ in range(n)]),
+        "quadratic_pairs": lambda n: quadratic_pairs(n),
+        "fib_exp": lambda n: fib_exp(n)
+    }
+
