@@ -75,3 +75,47 @@ def get_funcs() -> Dict[str, Callable[[int], object]]:
         "fib_exp": lambda n: fib_exp(n)
     }
 
+
+def get_repeats(fast: bool)-> Dict[str, int]:
+    """
+    Repeat very fast calls to reduce timer noise.
+    Slower algorithms run once per n
+    """
+    return {
+        "first_element": 200_000 if fast else 500_000,
+        "is_even": 200_000 if fast else 500_000,
+        "binary_search": 100_000 if fast else 200_000,
+        "linear_sum": 1,
+        "merge_sort": 1,
+        "quadratic_pairs": 1,
+        "fib_exp": 1
+    }
+
+# --------------------------------- Timing -------------------------#
+
+
+def time_call(fn: Callable[[int], object], n: int, repeats: int) -> float:
+    """
+    Return average seconds over 'repeats' runs.
+    """
+    start = time.perf_counter()
+    for _ in range(repeats):
+        fn(n)
+    end = time.perf_counter()
+    return (end - start) / repeats
+
+
+def measure_series(name: str, fn: callable[[int], object], ns: Iterable[int],
+                   repeats: int) -> Tuple[List[int], List[float]]:
+    """Measure seconds for each n; returns (ns, secs)"""
+    ns_list: List[int] = []
+    secs: List[float] = []
+    for n in ns:
+        s = time_call(fn, n, repeats=repeats)
+        ns_list.append(n)
+        secs.append(s)
+    return ns_list, secs
+
+
+# ---------------------------------- Plotting --------------------------------#
+
