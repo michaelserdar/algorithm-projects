@@ -60,7 +60,36 @@ def main():
         secs = time_call(is_even, n, repeats=500_000)
         print(format_row("is_even", n, secs))
 
+    # O(log n) example
+    section("O(log n) - binary_search_steps")
+    for n in [10, 10_000, 10_000_000]:
+        secs = time_call(binary_search_steps, n, repeats=200_000)
+        print(format_row("binary_search_steps", n, secs))
 
+    # O(n) example
+    section("O(n) - linear_sum")
+    for n in SIZES_LINEAR:
+        cecs = time_call(linear_sum, n)
+        print(format_row("linear_sum", n, secs))
+
+    # O(n log n) example
+    section("O(n log n) - merge_sort")
+    for n in SIZES_NLOGN:
+        data = [random.randint(0,1_000_000) for _ in range(n)]
+        secs = time_call(merge_sort, data)
+        print(format_row("merge_sort", n, secs))
+
+    # O(n^2) example
+    section("O(n^2) - quadratic_pairs")
+    for n in SIZES_quad:
+        secs = time_call(quadratic_pairs, n)
+        print(format_row("quadratic_pairs", n, secs))
+
+    # O(2^n) example
+    section("O(2^n) - fib_exp (naive)")
+    for n in SIZES_EXP:
+        secs = time_call(fib_exp, n)
+        print(format_row("fib_exp", n, secs))
 
 
 if __name__ == "__main__":
