@@ -119,3 +119,22 @@ def measure_series(name: str, fn: callable[[int], object], ns: Iterable[int],
 
 # ---------------------------------- Plotting --------------------------------#
 
+def plot_series(name:str, ns: List[int], secs: List[float], outdir: Path) -> Path:
+    import matplotlib.pyplot as plt
+
+    outdir.mkdir(parents=True, exist_ok=True)
+    outpath = outdir / f"{name}.png"
+
+    plt.figure() # default style
+    plt.plot(ns, secs, marker="o")
+    plt.xlabel("n")
+    plt.ylabel("seconds")
+    plt.title(f"Runtime growth: {name}")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(outpath.as_posix(), dpi=150, bbox_inches="tight")
+    plt.close()
+
+    print(f"Saved {outpath}")
+    return outpath
+
