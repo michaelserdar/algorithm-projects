@@ -51,10 +51,10 @@ def get_sizes(fast: bool) -> Dict[str, List[int]]:
         "linear_sum": [5_000, 20_000] if fast else [10_000, 50_000, 100_000],
 
         # O(n log n) example
-        "merge_sort": [2_000, 10_000] if fast else [5_000, 20_000, 50_000],
+        "merge_sort": [1_000, 2_000, 5_000, 10_000, 20_000, 50_000] if fast else [5_000, 20_000, 50_000],
 
         # O(n^2) example
-        "quadratic_pairs": [300, 600] if fast else [600, 1_000, 1_400],
+        "quadratic_pairs": [100, 200, 400, 800, 1200, 1600, 2000] if fast else [600, 1_000, 1_400, 2_000, 3_000],
 
         # O(2^n) example
         "fib_exp": [24, 26] if fast else [28, 30]
@@ -129,16 +129,29 @@ def measure_series(name: str, fn: Callable[[int], object], ns: Iterable[int],
 
 def plot_series(name: str, ns: List[int], secs: List[float], outdir: Path) -> Path:
     import matplotlib.pyplot as plt
+    import numpy as np
 
     outdir.mkdir(parents=True, exist_ok=True)
     outpath = outdir / f"{name}.png"
 
-    plt.figure()  # default style
-    plt.plot(ns, secs, marker="o")
-    plt.xlabel("n")
-    plt.ylabel("seconds")
-    plt.title(f"Runtime growth: {name}")
-    plt.grid(True)
+    plt.figure(figsize=(6, 4))
+
+    # Plot the measured times
+    plt.plot(ns, secs, marker="o", label=f"{name} (measured)")
+
+    # Overlay the theoretical curve for quadratic_pairs
+    if name == "quadratic_pairs":
+        # Normalize theory to roughly match scale of measured data
+        scale = secs[-1] / (ns[-1] ** 2)
+        plt.plot(ns, [scale * (n**2) for n in ns],
+                 linestyle="--", color="red", label="n^2 (theory)")
+
+    plt.xlabel("Input size (n)", fontsize=12)
+    plt.ylabel("Time (seconds)", fontsize=12)
+    plt.title(f"Runtime Growth: {name}", fontsize=14, fontweight="bold")
+    plt.legend()
+    plt.grid(True, linestyle=":", alpha=0.7)
+
     plt.tight_layout()
     plt.savefig(outpath.as_posix(), dpi=150, bbox_inches="tight")
     plt.close()
