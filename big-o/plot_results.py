@@ -33,6 +33,7 @@ from algorithms import (
     fib_exp
 )
 
+
 # -------------------------------- Configuration -----------------------------------------#
 
 
@@ -41,10 +42,10 @@ def get_sizes(fast: bool) -> Dict[str, List[int]]:
     return {
         # O(1) examples: list length doesn't effect lookup cost
         "first_element": [1_000_000, 1_000_000, 1_000_000],
-        "is_even": [10, 10**8, 10**12],
+        "is_even": [10, 10 ** 8, 10 ** 12],
 
         # O(log n) example
-        "binary_search": [10,10_000,10_000_000],
+        "binary_search": [10, 10_000, 10_000_000],
 
         # O(n) example
         "linear_sum": [5_000, 20_000] if fast else [10_000, 50_000, 100_000],
@@ -70,13 +71,13 @@ def get_funcs() -> Dict[str, Callable[[int], object]]:
         "is_even": lambda n: is_even(n),
         "binary_search": lambda n: binary_search_steps(n),
         "linear_sum": lambda n: linear_sum(n),
-        "merge_sort": lambda n: merge_sort([random.randint(0,1_000_000) for _ in range(n)]),
+        "merge_sort": lambda n: merge_sort([random.randint(0, 1_000_000) for _ in range(n)]),
         "quadratic_pairs": lambda n: quadratic_pairs(n),
         "fib_exp": lambda n: fib_exp(n)
     }
 
 
-def get_repeats(fast: bool)-> Dict[str, int]:
+def get_repeats(fast: bool) -> Dict[str, int]:
     """
     Repeat very fast calls to reduce timer noise.
     Slower algorithms run once per n
@@ -90,6 +91,7 @@ def get_repeats(fast: bool)-> Dict[str, int]:
         "quadratic_pairs": 1,
         "fib_exp": 1
     }
+
 
 # --------------------------------- Timing -------------------------#
 
@@ -119,13 +121,13 @@ def measure_series(name: str, fn: callable[[int], object], ns: Iterable[int],
 
 # ---------------------------------- Plotting --------------------------------#
 
-def plot_series(name:str, ns: List[int], secs: List[float], outdir: Path) -> Path:
+def plot_series(name: str, ns: List[int], secs: List[float], outdir: Path) -> Path:
     import matplotlib.pyplot as plt
 
     outdir.mkdir(parents=True, exist_ok=True)
     outpath = outdir / f"{name}.png"
 
-    plt.figure() # default style
+    plt.figure()  # default style
     plt.plot(ns, secs, marker="o")
     plt.xlabel("n")
     plt.ylabel("seconds")
@@ -137,4 +139,42 @@ def plot_series(name:str, ns: List[int], secs: List[float], outdir: Path) -> Pat
 
     print(f"Saved {outpath}")
     return outpath
+
+
+# ------------------------------- CSV -----------------------------------------#
+
+
+def append_csv(csv_path: Path, rows: List[Tuple[str, int, float]]) -> None:
+    """Append timing rows to a csv file. Creates a header if one does not exist"""
+    csv_path.parent.mkdir(parents=True, exist_of=True)
+    new_file = not csv_path.exists()
+    with csv_path.open("a", newline="") as f:
+        w = csv.writer(f)
+        if new_file:
+            w.writerow(["function", "n", "seconds"])
+        for row in rows:
+            w.writerow(row)
+
+
+# ---------------------------- CLI -------------------------------------------#
+
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description="Plot Big-O runtime growth curves.")
+    p.add_argument(
+        "--fast", action="store_true", help="Use smaller input sizes"
+    )
+    p.add_argument(
+        "--only", type=str, default="", help="Comma-separated list of function names to include "
+                                             "(first_element, is_even, binary_search_steps, linear_sum, merge_sort, "
+                                             "quadratic_pairs, fib_exp)"
+    )
+    p.add_argument(
+        "--outdir", type=Path, default=Path(__file__).parent / "plots",
+        help="Directory to save PNG plots (defaults to big-o/plots"
+    )
+    p.add_argument(
+        "--csv", type=Path, default=None, help="Optional path to append timing results as CSV."
+    )
+    return p.parse_args()
 
