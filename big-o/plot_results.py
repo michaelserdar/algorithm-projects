@@ -107,7 +107,7 @@ def time_call(fn: Callable[[int], object], n: int, repeats: int) -> float:
     return (end - start) / repeats
 
 
-def measure_series(name: str, fn: callable[[int], object], ns: Iterable[int],
+def measure_series(name: str, fn: Callable[[int], object], ns: Iterable[int],
                    repeats: int) -> Tuple[List[int], List[float]]:
     """Measure seconds for each n; returns (ns, secs)"""
     ns_list: List[int] = []
